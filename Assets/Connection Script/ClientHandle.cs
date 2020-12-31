@@ -6,15 +6,15 @@ using UnityEngine.UI;
 
 public class ClientHandle : MonoBehaviour
 {
-    public static void Welcome(Packet _packet)
+    public static void Welcome(Packet _packet)//welcomeReceived
     {
         string _msg = _packet.ReadString();
         int _myId = _packet.ReadInt();
         Debug.Log($"Message from server: {_msg}");
         client.instance.id = _myId;
-        ClientSend.WelcomeReceived();
+        ClientSend.WelcomeReceived();// send hello to server, server will have a class named packethandler to catch this
         Debug.Log("Get the welcome message");
-        Debug.Log($"{((IPEndPoint)client.instance.tcp.socket.Client.LocalEndPoint).Port}");
+        Debug.Log($"{((IPEndPoint)client.instance.tcp.socket.Client.LocalEndPoint).Port}"); // 
         timer.instance.ConnectToServerUDP(((IPEndPoint)client.instance.tcp.socket.Client.LocalEndPoint).Port);
     }
 

@@ -30,6 +30,10 @@ public class GameManager : MonoBehaviour
     public void SpawnPlayer(int _id, string _username, Vector3 _position, Quaternion _rotation)
     {
         GameObject _player;
+        Debug.Log("no connect?");
+        // here call the client to connect to server
+        // client.instance.ConnectToServer(ipaddr,port)
+        // need to know the client ipaddr and port  tutorial set the static port and ipaddr at client.cs
         if (_id == client.instance.id)
         {
             if(_id % 2 == 0)
@@ -51,6 +55,7 @@ public class GameManager : MonoBehaviour
                 _player = Instantiate(playerPrefab_I, _position, _rotation);
             }
         }
+        // set id & username to add in the dict
         _player.GetComponent<PlayerManager>().id = _id;
         _player.GetComponent<PlayerManager>().username = _username;
         players.Add(_id, _player.GetComponent<PlayerManager>());

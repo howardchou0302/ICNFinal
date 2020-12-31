@@ -14,7 +14,7 @@ public class client : MonoBehaviour
     public UDP udp;
 
     public bool isConnected = false;
-
+    // why??? what is delegate void?? => sound like pointer
     private delegate void PacketHandler(Packet _packet);
     private static Dictionary<int, PacketHandler> packetHandlers;
 
@@ -41,7 +41,7 @@ public class client : MonoBehaviour
     {
         Disconnect();
     }
-
+    // here get the ip and port
     public void ConnectToServer(String ipaddress, int port)
     {
         InitializeClientData();
@@ -61,7 +61,10 @@ public class client : MonoBehaviour
 
 
         public void Connect(String ipaddress, int port)
+        // this place call the ip addr. and port, but who?? ->ConnectToServer
         {
+            Console.WriteLine("need ip?");
+            Console.WriteLine($"{ipaddress},{port}");
             socket = new TcpClient
             {
                 ReceiveBufferSize = dataBufferSize,
