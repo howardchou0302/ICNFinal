@@ -12,6 +12,11 @@ namespace GameServer
             Server.clients[_toClient].tcp.SendData(_packet);
         } 
 
+        private static void SendUDPData(int _toClient, Packet _packet)
+        {
+            _packet.WriteLength();
+            Server.clients[_toClient].udp.SendData(_packet);
+        }
         private static void SendTCPDataToAll(Packet _packet)
         {
             _packet.WriteLength();
@@ -33,7 +38,28 @@ namespace GameServer
             }
         }
 
-        public static void welcome( int _toClient, string _msg)
+        private static void SendUDPDataToAll(Packet _packet)
+        {
+            _packet.WriteLength();
+            for (int i = 0; i <= Server.Maxplayers; ++i)
+            {
+                Server.clients[i].udp.SendData(_packet);
+            }
+        }
+
+        private static void SendUDPDataToAll(int _exceptClient, Packet _packet)
+        {
+            _packet.WriteLength();
+            for (int i = 0; i <= Server.Maxplayers; ++i)
+            {
+                if (i != _exceptClient)
+                {
+                    Server.clients[i].udp.SendData(_packet);
+                }
+            }
+        }
+        #region Packets
+        public static void Welcome( int _toClient, string _msg)
         {
             using (Packet _packet = new Packet((int)ServerPackets.welcome))
             {
@@ -43,5 +69,6 @@ namespace GameServer
                 SendTCPData(_toClient, _packet);
             }
         }
+        #endregion
     }
 }
