@@ -9,7 +9,7 @@ using UnityEditor;
 
 public class start : MonoBehaviour
 {   
-    //public static Client client;
+    //public static client client;
     public int sceneIndex = 1; //要載入的Scene
     public static start instance;
     public InputField IPaddress;
@@ -29,7 +29,11 @@ public class start : MonoBehaviour
     public void ClickEvent()
     {
         //切換Scene
+        Debug.Log("ClickEvent");
         SceneManager.LoadScene (sceneIndex);
+        Debug.Log(IPaddress.text);
+        Client.instance.ConnectToServer(IPaddress.text , 26950);
+        Constants.ServerIP = IPaddress.text;
     }
     
 }

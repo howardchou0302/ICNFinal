@@ -19,11 +19,14 @@ public class launchRocket : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("Start:Launch the Rocket");
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (progressBar == null)
+            Debug.Log("progressBar missing");
         if (progressBar.value <= 0.5f){
           if(progressBar.value <= 0.33f){
             image.sprite = spriteArray[0];

@@ -7,13 +7,13 @@ public class ClientSend : MonoBehaviour
     private static void SendTCPData(Packet _packet)
     {
         _packet.WriteLength();
-        client.instance.tcp.SendData(_packet);
+        Client.instance.tcp.SendData(_packet);
     }
 
     private static void SendUDPData(Packet _packet)
     {
         _packet.WriteLength();
-        client.instance.udp.SendData(_packet);
+        Client.instance.udp.SendData(_packet);
     }
 
     #region Packets
@@ -21,7 +21,7 @@ public class ClientSend : MonoBehaviour
     {
         using (Packet _packet = new Packet((int)ClientPackets.welcomeReceived))
         {
-            _packet.Write(client.instance.id);
+            _packet.Write(Client.instance.id);
             _packet.Write("hello");
 
             SendTCPData(_packet);
@@ -34,10 +34,11 @@ public class ClientSend : MonoBehaviour
         {
 
             _packet.Write(_input);
-            if (client.instance.isConnected)
+            if (Client.instance.isConnected)
             {
+                Debug.Log("send rotation");
                 //Debug.Log($"Send local player position ({_input.x}, {_input.y})");
-                _packet.Write(GameManager.players[client.instance.id].transform.rotation);
+                _packet.Write(GameManager.players[Client.instance.id].transform.rotation);
 
                 SendUDPData(_packet);
             }
@@ -54,4 +55,13 @@ public class ClientSend : MonoBehaviour
         }
     }
     #endregion
+
+    /*public static void UDPTestReceived()
+    {
+        using(Packet _packet = new Packet((int)ClientPackets.udpTestReceived))
+        {
+            _packet.Write("Received a UDP packet");
+            SendUDPData(_packet);
+        }
+    }*/
 }

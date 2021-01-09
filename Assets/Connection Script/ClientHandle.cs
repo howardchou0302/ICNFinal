@@ -6,17 +6,27 @@ using UnityEngine.UI;
 
 public class ClientHandle : MonoBehaviour
 {
-    public static void Welcome(Packet _packet)//welcomeReceived
+    public static void welcome(Packet _packet)//welcomeReceived
     {
         string _msg = _packet.ReadString();
         int _myId = _packet.ReadInt();
         Debug.Log($"Message from server: {_msg}");
-        client.instance.id = _myId;
+        Client.instance.id = _myId;
         ClientSend.WelcomeReceived();// send hello to server, server will have a class named packethandler to catch this
         Debug.Log("Get the welcome message");
-        Debug.Log($"{((IPEndPoint)client.instance.tcp.socket.Client.LocalEndPoint).Port}"); // 
-        timer.instance.ConnectToServerUDP(((IPEndPoint)client.instance.tcp.socket.Client.LocalEndPoint).Port);
+        Debug.Log($"{((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port}"); 
+        if (timer.instance == null)
+            Debug.Log("null");// 之後要用timer連?
+        Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port, Constants.ServerIP, 26950); // connect to the server with udp by sending the local ip
     }
+
+    /*public static void UDPTest(Packet _packet)
+    {
+        string _msg = _packet.ReadString();
+
+        Debug.Log($"Receive packet via UDP, containing message: {_msg}");
+        ClientSend.UDPTestReceived();
+    }*/
 
     public static void SpawnPlayer(Packet _packet)
     {
@@ -33,13 +43,15 @@ public class ClientHandle : MonoBehaviour
     {
         int _id = _packet.ReadInt();
         Vector3 _position = _packet.ReadVector3();
-        if ((_id != client.instance.id))
+        if ((_id != Client.instance.id))
         {
             //Debug.Log($"UDP Message from server: {_id} and new position :({ _position.x},{_position.y})");
             try
             {
-                GameObject player = GameManager.players[_id].transform.GetChild(2).gameObject;
-                player.transform.position = _position;
+                Debug.Log($"count:{GameManager.players[_id].transform.childCount}");
+                /*GameObject player = GameManager.players[_id].transform.GetChild(2).gameObject;
+                player.transform.position = _position;*/
+                GameManager.players[_id].transform.position = _position;
             }
             catch (KeyNotFoundException e)
             {

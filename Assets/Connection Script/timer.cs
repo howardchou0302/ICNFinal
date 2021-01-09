@@ -7,7 +7,7 @@ public class timer : MonoBehaviour
     public static timer instance;
     public GameObject canvus;
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         ConnectToServer();
     }
@@ -29,13 +29,14 @@ public class timer : MonoBehaviour
     public void ConnectToServer()
     {
         canvus.SetActive(false);
-        client.instance.ConnectToServer(Constants.ServerIP, 26950);
+        Client.instance.ConnectToServer(Constants.ServerIP, 26950);
+        //Client.instance.ConnectToServer();
         Debug.Log("test for tcp");
     }
 
     public void ConnectToServerUDP(int _local)
     {
-        client.instance.udp.Connect(_local, Constants.ServerIP, 26950);
+        Client.instance.udp.Connect(_local, Constants.ServerIP, 26950); 
         Debug.Log("test for connect to server with UDP");
     }
 }

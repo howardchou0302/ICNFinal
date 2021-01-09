@@ -10,6 +10,7 @@ public class ThreadManager : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log("update");
         UpdateMain();
     }
 
@@ -45,6 +46,7 @@ public class ThreadManager : MonoBehaviour
 
             for (int i = 0; i < executeCopiedOnMainThread.Count; i++)
             {
+                Debug.Log("execute");
                 executeCopiedOnMainThread[i]();
             }
         }

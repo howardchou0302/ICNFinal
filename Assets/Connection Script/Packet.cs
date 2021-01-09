@@ -8,7 +8,7 @@ using System.Collections;
 public enum ServerPackets
 {
     welcome = 1,
-    spawnPlayer,
+    spawnPlayer = 2,
     playerPosition,
     playerRotation,
     global_progress
