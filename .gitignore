@@ -1,7 +1,6 @@
 # format files
 *.meta
 *.unity
-*.prefab
 *.anim
 *.PNG
 
