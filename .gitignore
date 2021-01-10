@@ -2,11 +2,17 @@
 *.meta
 *.anim
 *.PNG
+*.prefab
 
 # folders under Assets
 Assets/BayatGames
 Assets/Font
 Assets/Scenes
+
+# folders under GameServer
+GameServer/bin
+GameServer/obj
+GameServer/.vs
 
 # distinct files under Assets
 Assets/Weapons/Landmine.controller
@@ -21,6 +27,7 @@ MonoBleedingEdge
 obj
 Packages
 ProjectSettings
+Temp
 
 # files under main
 .collabignore
