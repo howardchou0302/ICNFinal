@@ -9,10 +9,17 @@ namespace GameServer
     public enum ServerPackets
     {
         welcome = 1,
-        spawnPlayer = 2,
+        spawnPlayer,
         playerPosition,
-        playerRotation,
-        global_progress
+        playerFrozen,
+        playerWithItem,
+        playerDropItem,
+        globalProgress,
+        gunRotation,
+        spawnProjectile,
+        projectileExploded,
+        spawnBomb,
+        bombExploded
     }
 
     /// <summary>Sent from client to server.</summary>
@@ -20,7 +27,13 @@ namespace GameServer
     {
         welcomeReceived = 1,
         playerMovement,
-        local_collection
+        playerGunDirection,
+        playerShoot,
+        playerPickItem,
+        playerPlaceItem, // place item at lab
+        playerPlaceBomb,
+        projectileExploded,
+        bombExploded
     }
 
     public class Packet : IDisposable
@@ -166,11 +179,10 @@ namespace GameServer
         }
         /// <summary>Adds a Vector3 to the packet.</summary>
         /// <param name="_value">The Vector3 to add.</param>
-        public void Write(Vector3 _value)
+        public void Write(Vector2 _value)
         {
             Write(_value.X);
             Write(_value.Y);
-            Write(_value.Z);
         }
         /// <summary>Adds a Quaternion to the packet.</summary>
         /// <param name="_value">The Quaternion to add.</param>
@@ -355,9 +367,9 @@ namespace GameServer
 
         /// <summary>Reads a Vector3 from the packet.</summary>
         /// <param name="_moveReadPos">Whether or not to move the buffer's read position.</param>
-        public Vector3 ReadVector3(bool _moveReadPos = true)
+        public Vector2 ReadVector2(bool _moveReadPos = true)
         {
-            return new Vector3(ReadFloat(_moveReadPos), ReadFloat(_moveReadPos), ReadFloat(_moveReadPos));
+            return new Vector2(ReadFloat(_moveReadPos), ReadFloat(_moveReadPos));
         }
 
         /// <summary>Reads a Quaternion from the packet.</summary>

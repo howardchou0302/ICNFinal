@@ -13,33 +13,65 @@ namespace GameServer
             string _username = _packet.ReadString();
 
             Console.WriteLine($"{Server.clients[_fromClient].tcp.socket.Client.RemoteEndPoint} connected successfully and is now player {_fromClient}.");
-            /*if (_fromClient != _clientIdCheck)
+            if (_fromClient != _clientIdCheck)
             {
-                Console.WriteLine($"Receive \"{_username}\" (ID: {_fromClient}) has assumed the wrong client ID ({_clientIdCheck})!");
-            }*/
+                Console.WriteLine($"Player \"{_username}\" (ID: {_fromClient}) has assumed the wrong client ID ({_clientIdCheck})!");
+            }
             Server.clients[_fromClient].SendIntoGame(_username);
         }
 
         public static void PlayerMovement(int _fromClient, Packet _packet)
         {
-            //int _id = _packet.ReadInt();
-            Vector3 _position = _packet.ReadVector3();
-            Vector3 _rotation = _packet.ReadVector3();
-            //Console.WriteLine($"Player{_fromClient}: X:{_rotation.X},Y:{_rotation.Y},{_rotation.Z}");
-            Server.clients[_fromClient].player.SetInput(_position);
-            /*bool[] _inputs = new bool[_packet.ReadInt()];
+            bool[] _inputs = new bool[_packet.ReadInt()];
             for (int i = 0; i < _inputs.Length; i++)
             {
                 _inputs[i] = _packet.ReadBool();
             }
             Quaternion _rotation = _packet.ReadQuaternion();
 
-            Server.clients[_fromClient].player.SetInput(_inputs, _rotation);*/
+            Server.clients[_fromClient].player.SetInput(_inputs, _rotation);
         }
 
-        public static void LocalCollection(int _fromClient, Packet _packet)
+        // playerGunDirection,
+        public static void PlayerGunDirection(int _fromClient, Packet _packet)
         {
-            //TODO
+
         }
+
+        // playerShoot,
+        public static void PlayerShoot(int _fromClient, Packet _packet)
+        {
+
+        }
+
+        // playerPickItem,
+        public static void PlayerPickItem(int _fromClient, Packet _packet)
+        {
+
+        }
+
+        // playerPlaceItem,
+        public static void PlayerPlaceItem(int _fromClient, Packet _packet)
+        {
+
+        }
+
+        // playerPlaceBomb,
+        public static void PlayerPlaceBomb(int _fromClient, Packet _packet)
+        {
+
+        }
+
+        // projectileExploded
+        public static void ProjectileExploded(int _fromClient, Packet _packet)
+        {
+
+        }
+        // bombExploded
+        public static void BombExploded(int _fromClient, Packet _packet)
+        {
+
+        }
+
     }
 }
