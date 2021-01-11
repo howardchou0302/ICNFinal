@@ -2,7 +2,6 @@
 *.meta
 *.anim
 *.PNG
-*.prefab
 
 # folders under Assets
 Assets/BayatGames
