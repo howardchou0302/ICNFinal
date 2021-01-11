@@ -50,6 +50,12 @@ namespace GameServer
 
         }
 
+        // playerMiningItem
+        public static void PlayerMiningItem(int _fromClient, Packet _packet)
+        {
+
+        }
+
         // playerPlaceBomb,
         public static void PlayerPlaceBomb(int _fromClient, Packet _packet)
         {

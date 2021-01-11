@@ -160,6 +160,7 @@ namespace GameServer
                 { (int)ClientPackets.playerShoot, ServerHandle.PlayerShoot },
                 { (int)ClientPackets.playerPickItem, ServerHandle.PlayerPickItem },
                 { (int)ClientPackets.playerPlaceItem, ServerHandle.PlayerPlaceItem },
+                { (int)ClientPackets.playerMiningItem, ServerHandle.PlayerMiningItem },
                 { (int)ClientPackets.playerPlaceBomb, ServerHandle.PlayerPlaceBomb },
                 { (int)ClientPackets.projectileExploded, ServerHandle.ProjectileExploded },
                 { (int)ClientPackets.bombExploded, ServerHandle.BombExploded },

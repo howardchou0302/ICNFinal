@@ -14,6 +14,7 @@ namespace GameServer
         playerFrozen,
         playerWithItem,
         playerDropItem,
+        playerMiningItem,
         globalProgress,
         gunRotation,
         spawnProjectile,
@@ -21,13 +22,12 @@ namespace GameServer
         spawnBomb,
         bombExploded
     }
-
-    /// <summary>Sent from client to server.</summary>
     public enum ClientPackets
     {
         welcomeReceived = 1,
         playerMovement,
         playerGunDirection,
+        playerMiningItem,
         playerShoot,
         playerPickItem,
         playerPlaceItem, // place item at lab

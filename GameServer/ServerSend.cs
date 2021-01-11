@@ -153,6 +153,17 @@ namespace GameServer
             }
         }
 
+        //playerMiningItem
+        public static void PlayerMiningItem(Player _player)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.playerMiningItem))
+            {
+                _packet.Write(_player.id);
+
+                SendTCPDataToAll(_player.id, _packet);
+            }
+        }
+
         // globalProgress
         public static void GlobalProgress(Dictionary<int, float> progress)
         {
