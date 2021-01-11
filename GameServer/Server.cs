@@ -11,6 +11,16 @@ enum PROGRESS{
     total
 }
 
+enum CharacterStats
+{
+    Idle = 1,
+    Walk,
+    Coal,
+    Metal,
+    Water,
+    Bomb
+}
+
 namespace GameServer
 {
     class Server
@@ -20,7 +30,7 @@ namespace GameServer
         public static Dictionary<int, Client> clients = new Dictionary<int, Client>();
         public delegate void PacketHandler(int _fromClient, Packet _packet);
         public static Dictionary<int, PacketHandler> packetHandlers;
-        public static Dictionary<int, int> progress;
+        public static Dictionary<int, float> progress;
 
         private static TcpListener tcpListener;
         private static UdpClient udpListener;
@@ -129,7 +139,7 @@ namespace GameServer
         /// <summary>Initializes all necessary server data.</summary>
         private static void InitializeServerData()
         {    
-            progress = new Dictionary<int, int>()
+            progress = new Dictionary<int, float>()
             {
                 {(int)PROGRESS.water, 0},
                 {(int)PROGRESS.metal, 0},

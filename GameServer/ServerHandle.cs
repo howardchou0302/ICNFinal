@@ -24,19 +24,13 @@ namespace GameServer
         {
             bool[] _inputs = new bool[_packet.ReadInt()];
             for (int i = 0; i < _inputs.Length; i++)
-            {
-                _inputs[i] = _packet.ReadBool();
-            }
-            Quaternion _rotation = _packet.ReadQuaternion();
-
-            Server.clients[_fromClient].player.SetInput(_inputs, _rotation);
+            { _inputs[i] = _packet.ReadBool(); }
+            Server.clients[_fromClient].player.SetInput(_inputs);
         }
 
         // playerGunDirection,
         public static void PlayerGunDirection(int _fromClient, Packet _packet)
-        {
-
-        }
+        { Server.clients[_fromClient].player.SetGunRotation(_packet.ReadQuaternion()); }
 
         // playerShoot,
         public static void PlayerShoot(int _fromClient, Packet _packet)

@@ -12,6 +12,7 @@ namespace GameServer
 
         public Vector3 position;
         public Quaternion gunRotation;
+        public CharacterStats state;
 
         private float moveSpeed = 5f / Constants.TICKS_PER_SEC;
         private bool[] inputs;
@@ -21,6 +22,7 @@ namespace GameServer
             id = _id;
             username = _username;
             position = _spawnPosition;
+            state = CharacterStats.Idle;
 
             inputs = new bool[4];
         }
@@ -57,16 +59,14 @@ namespace GameServer
             position += _moveDirection * moveSpeed;
 
             ServerSend.PlayerPosition(this);
-            ServerSend.gunRotation(this);
+            ServerSend.GunRotation(this);
         }
 
         /// <summary>Updates the player input with newly received input.</summary>
         /// <param name="_inputs">The new key inputs.</param>
         /// <param name="_rotation">The new rotation.</param>
-        public void SetInput(bool[] _inputs, Quaternion _rotation)
-        {
-            inputs = _inputs;
-            gunRotation = _rotation;
-        }
+        public void SetInput(bool[] _inputs) { inputs = _inputs; }
+        
+        public void SetGunRotation(Quaternion r) { gunRotation = r;  }
     }
 }

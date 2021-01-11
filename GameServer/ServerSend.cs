@@ -120,7 +120,7 @@ namespace GameServer
         }
 
         //playerFrozen
-        public static void playerFrozen(Player _player)
+        public static void PlayerFrozen(Player _player)
         {
             using (Packet _packet = new Packet((int)ServerPackets.playerFrozen))
             {
@@ -131,18 +131,19 @@ namespace GameServer
         }
 
         // playerWithItem
-        public static void playerWithItem(Player _player)
+        public static void PlayerWithItem(Player _player)
         {
             using (Packet _packet = new Packet((int)ServerPackets.playerWithItem))
             {
                 _packet.Write(_player.id);
+                _packet.Write((int)_player.state);
 
                 SendTCPDataToAll(_player.id, _packet);
             }
         }
 
         // playerDropItem
-        public static void playerDropItem(Player _player)
+        public static void PlayerDropItem(Player _player)
         {
             using (Packet _packet = new Packet((int)ServerPackets.playerDropItem))
             {
@@ -153,7 +154,7 @@ namespace GameServer
         }
 
         // globalProgress
-        public static void globalProgress(Dictionary<int, int> progress)
+        public static void GlobalProgress(Dictionary<int, float> progress)
         {
             using (Packet _packet = new Packet((int)ServerPackets.globalProgress))
             {
@@ -167,7 +168,7 @@ namespace GameServer
         }
 
         // gunRotation
-        public static void gunRotation(Player _player)
+        public static void GunRotation(Player _player)
         {
             using (Packet _packet = new Packet((int)ServerPackets.gunRotation))
             {
@@ -179,7 +180,7 @@ namespace GameServer
         }
         
         // spawnProjectile
-        public static void spawnProjectile(Projectile _projectile)
+        public static void SpawnProjectile(Projectile _projectile)
         {
             using (Packet _packet = new Packet((int)ServerPackets.spawnProjectile))
             {
@@ -192,7 +193,7 @@ namespace GameServer
         }
 
         // projectileExploded
-        public static void projectileExploded(Player _player, Projectile _projectile)
+        public static void ProjectileExploded(Player _player, Projectile _projectile)
         {
             using (Packet _packet = new Packet((int)ServerPackets.projectileExploded))
             {
@@ -204,7 +205,7 @@ namespace GameServer
         }
 
         // spawnBomb
-        public static void spawnBomb(Bomb _bomb)
+        public static void SpawnBomb(Bomb _bomb)
         {
             using (Packet _packet = new Packet((int)ServerPackets.spawnBomb))
             {
@@ -216,7 +217,7 @@ namespace GameServer
         }
 
         // bombExploded
-        public static void bombExploded(Player _player, Bomb _bomb)
+        public static void BombExploded(Player _player, Bomb _bomb)
         {
             using (Packet _packet = new Packet((int)ServerPackets.bombExploded))
             {
