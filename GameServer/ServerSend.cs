@@ -153,11 +153,14 @@ namespace GameServer
         }
 
         // globalProgress
-        public static void globalProgress(int progress)
+        public static void globalProgress(Dictionary<int, int> progress)
         {
             using (Packet _packet = new Packet((int)ServerPackets.globalProgress))
             {
-                _packet.Write(progress);
+                _packet.Write(progress[(int)PROGRESS.water]);
+                _packet.Write(progress[(int)PROGRESS.metal]);
+                _packet.Write(progress[(int)PROGRESS.coal]);
+                _packet.Write(progress[(int)PROGRESS.total]);
 
                 SendUDPDataToAll(_packet);
             }

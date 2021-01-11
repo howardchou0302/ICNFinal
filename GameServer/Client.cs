@@ -214,7 +214,7 @@ namespace GameServer
         /// <param name="_playerName">The username of the new player.</param>
         public void SendIntoGame(string _playerName)
         {
-            player = new Player(id, _playerName, new Vector2(0, 0));
+            player = new Player(id, _playerName, new Vector3(0, 0, 0));
 
             // Send all players to the new player
             foreach (Client _client in Server.clients.Values)

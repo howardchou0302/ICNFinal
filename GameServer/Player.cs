@@ -10,13 +10,13 @@ namespace GameServer
         public int id;
         public string username;
 
-        public Vector2 position;
+        public Vector3 position;
         public Quaternion gunRotation;
 
         private float moveSpeed = 5f / Constants.TICKS_PER_SEC;
         private bool[] inputs;
 
-        public Player(int _id, string _username, Vector2 _spawnPosition)
+        public Player(int _id, string _username, Vector3 _spawnPosition)
         {
             id = _id;
             username = _username;
@@ -28,7 +28,7 @@ namespace GameServer
         /// <summary>Processes player input and moves the player.</summary>
         public void Update()
         {
-            Vector2 _inputDirection = Vector2.Zero;
+            Vector3 _inputDirection = Vector3.Zero;
             if (inputs[0])
             {
                 _inputDirection.Y += 1;
@@ -51,9 +51,9 @@ namespace GameServer
 
         /// <summary>Calculates the player's desired movement direction and moves him.</summary>
         /// <param name="_inputDirection"></param>
-        private void Move(Vector2 _inputDirection)
+        private void Move(Vector3 _inputDirection)
         {
-            Vector2 _moveDirection = Vector2.Normalize(_inputDirection);
+            Vector3 _moveDirection = Vector3.Normalize(_inputDirection);
             position += _moveDirection * moveSpeed;
 
             ServerSend.PlayerPosition(this);
