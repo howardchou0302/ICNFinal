@@ -26,7 +26,9 @@ public class launchRocket : MonoBehaviour
     void Update()
     {
         if (progressBar == null)
-            Debug.Log("progressBar missing");
+        {
+            progressBar = (Slider)FindObjectOfType(typeof(Slider));
+        }
         if (progressBar.value <= 0.5f){
           if(progressBar.value <= 0.33f){
             image.sprite = spriteArray[0];
