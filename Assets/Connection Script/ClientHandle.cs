@@ -61,7 +61,75 @@ public class ClientHandle : MonoBehaviour
         }
     }
 
-    public static void PlayerRotation(Packet _packet)
+    public static void PlayerFrozen(Packet _packet) //TODO
+    {
+        int _id = _packet.ReadInt();
+        try
+        {
+            GameManager.instance.SetFrozen(_id);
+        }
+        catch (KeyNotFoundException e)
+        {
+            Debug.Log($"{e}");
+            // do nothing, since we have not spawn the client
+        }
+    }
+
+    public static void PlayerWithItem(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        int _item = _packet.ReadInt();
+        try
+        {
+            //TODO
+        }
+        catch (KeyNotFoundException e)
+        {
+            Debug.Log($"{e}");
+            // do nothing, since we have not spawn the client
+        }
+    }
+
+    public static void PlayerDropItem(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        try
+        {
+            //TODO
+        }
+        catch (KeyNotFoundException e)
+        {
+            Debug.Log($"{e}");
+            // do nothing, since we have not spawn the client
+        }
+    }
+
+    public static void GunRotation(Packet _packet)
+    {
+        Vector3 _position = _packet.ReadVector3();
+        Quaternion _rotation = _packet.ReadQuaternion();
+        try
+        {
+            if(_rotation != Quaternion.identity)
+            {
+
+            }
+            else
+            {
+                if (true)
+                {
+
+                }
+            }
+        }
+        catch (KeyNotFoundException e)
+        {
+            Debug.Log($"{e}");
+            // do nothing, since we have not spawn the client
+        }
+    }
+
+    public static void SpawnProjectile(Packet _packet)
     {
         int _id = _packet.ReadInt();
         Quaternion _rotation = _packet.ReadQuaternion();
@@ -76,7 +144,22 @@ public class ClientHandle : MonoBehaviour
         }
     }
 
-    public static void Global_Progress(Packet _packet)
+    public static void ProjectileExploded(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        Quaternion _rotation = _packet.ReadQuaternion();
+        try
+        {
+            GameManager.players[_id].transform.rotation = _rotation;
+        }
+        catch (KeyNotFoundException e)
+        {
+            Debug.Log($"{e}");
+            // do nothing, since we have not spawn the client
+        }
+    }
+
+    public static void GlobalProgress(Packet _packet)
     {
         //int _teamID = _packet.ReadInt();
         Vector3 _progress = _packet.ReadVector3();
@@ -99,4 +182,33 @@ public class ClientHandle : MonoBehaviour
         }
     }
 
+    public static void SpawnBomb(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        Quaternion _rotation = _packet.ReadQuaternion();
+        try
+        {
+            GameManager.players[_id].transform.rotation = _rotation;
+        }
+        catch (KeyNotFoundException e)
+        {
+            Debug.Log($"{e}");
+            // do nothing, since we have not spawn the client
+        }
+    }
+
+    public static void BombExploded(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        Quaternion _rotation = _packet.ReadQuaternion();
+        try
+        {
+            GameManager.players[_id].transform.rotation = _rotation;
+        }
+        catch (KeyNotFoundException e)
+        {
+            Debug.Log($"{e}");
+            // do nothing, since we have not spawn the client
+        }
+    }
 }

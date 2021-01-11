@@ -2,6 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
+enum PROGRESS
+{
+    water = 1,
+    metal,
+    coal,
+    total
+}
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -59,4 +67,10 @@ public class GameManager : MonoBehaviour
         _player.GetComponent<PlayerManager>().username = _username;
         players.Add(_id, _player.GetComponent<PlayerManager>());
     }
+
+    public void SetFrozen(int _id)
+    {
+        players[_id].GetComponent<droppingBomb>().getBombed();
+    }
+
 }
