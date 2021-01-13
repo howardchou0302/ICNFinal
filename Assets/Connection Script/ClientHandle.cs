@@ -36,7 +36,6 @@ public class ClientHandle : MonoBehaviour
         Quaternion _rotation = _packet.ReadQuaternion();
 
         GameManager.instance.SpawnPlayer(_id, _username, _position, _rotation);
-        ClientSend.LocalCollection(Vector3.zero);
     }
 
     public static void PlayerPosition(Packet _packet)
