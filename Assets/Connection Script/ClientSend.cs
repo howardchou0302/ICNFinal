@@ -36,32 +36,81 @@ public class ClientSend : MonoBehaviour
             _packet.Write(_input);
             if (Client.instance.isConnected)
             {
-                Debug.Log("send rotation");
-                //Debug.Log($"Send local player position ({_input.x}, {_input.y})");
-                _packet.Write(GameManager.players[Client.instance.id].transform.rotation);
 
                 SendUDPData(_packet);
             }
         }
     }
 
-    public static void LocalCollection(Vector3 _input)
+    /*          { (int)ClientPackets.playerGunDirection, ServerHandle.PlayerGunDirection },
+                { (int)ClientPackets.playerShoot, ServerHandle.PlayerShoot },
+                { (int)ClientPackets.playerPickItem, ServerHandle.PlayerPickItem },
+                { (int)ClientPackets.playerPlaceItem, ServerHandle.PlayerPlaceItem },
+                { (int)ClientPackets.playerPlaceBomb, ServerHandle.PlayerPlaceBomb },
+                { (int)ClientPackets.projectileExploded, ServerHandle.ProjectileExploded },
+                { (int)ClientPackets.bombExploded, ServerHandle.BombExploded },
+                mining
+     */
+    
+    public static void BombExploded(int BombId)
     {
-        using (Packet _packet = new Packet((int)ClientPackets.local_collection))
+        using (Packet _packet = new Packet((int)ClientPackets.bombExploded))
         {
-            _packet.Write(_input);
-            //Debug.Log($"Send local player collection ({_input.x}, {_input.y}, {_input.z})");
-            SendUDPData(_packet);
+            _packet.Write(BombId);
+            SendTCPData(_packet);
         }
     }
+
+    public static void ProjectileExploded(int ProjectileId)
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.projectileExploded))
+        {
+            _packet.Write(Client.instance.id);
+            _packet.Write(ProjectileId);
+            SendTCPData(_packet);
+        }
+    }
+
+    public static void PlayerGunDirection(Quaternion _input)
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.playerGunDirection))
+        {
+            _packet.Write(_input);
+            if (Client.instance.isConnected)
+            {
+
+                SendUDPData(_packet);
+            }
+        }
+    }
+    public static void PlayerShoot(Vector3 _inputVector, Quaternion _inputQ)
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.playerShoot))
+        {
+            _packet.Write(Client.instance.id);
+            _packet.Write(_inputVector);
+            _packet.Write(_inputQ);
+            SendTCPData(_packet);
+        }
+    }
+    public static void PlayerPickItem()
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.playerPickItem))
+        {
+            _packet.Write(Client.instance.id);
+            SendTCPData(_packet);
+        }
+    }
+
+    public static void PlayerPlaceBomb()
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.playerPlaceBomb))
+        {
+            _packet.Write(Client.instance.id);
+            SendTCPData(_packet);
+        }
+    }
+
     #endregion
 
-    /*public static void UDPTestReceived()
-    {
-        using(Packet _packet = new Packet((int)ClientPackets.udpTestReceived))
-        {
-            _packet.Write("Received a UDP packet");
-            SendUDPData(_packet);
-        }
-    }*/
 }

@@ -22,15 +22,21 @@ namespace GameServer
 
         public static void PlayerMovement(int _fromClient, Packet _packet)
         {
-            bool[] _inputs = new bool[_packet.ReadInt()];
+
+            /*bool[] _inputs = new bool[_packet.ReadInt()];
             for (int i = 0; i < _inputs.Length; i++)
             { _inputs[i] = _packet.ReadBool(); }
-            Server.clients[_fromClient].player.SetInput(_inputs);
+            Server.clients[_fromClient].player.SetInput(_inputs);*/
+            Vector3 _input = _packet.ReadVector3();
+            Console.WriteLine($"player{_fromClient}:X:{_input.X},Y:{_input.Y}");
+            Server.clients[_fromClient].player.SetInput(_input);
         }
 
         // playerGunDirection,
         public static void PlayerGunDirection(int _fromClient, Packet _packet)
-        { Server.clients[_fromClient].player.SetGunRotation(_packet.ReadQuaternion()); }
+        {
+            Quaternion r = _packet.ReadQuaternion();
+            Server.clients[_fromClient].player.SetGunRotation(r); }
 
         // playerShoot,
         public static void PlayerShoot(int _fromClient, Packet _packet)
