@@ -21,57 +21,34 @@ namespace GameServer
         }
 
         public static void PlayerMovement(int _fromClient, Packet _packet)
-        {
-
-            /*bool[] _inputs = new bool[_packet.ReadInt()];
-            for (int i = 0; i < _inputs.Length; i++)
-            { _inputs[i] = _packet.ReadBool(); }
-            Server.clients[_fromClient].player.SetInput(_inputs);*/
-            Vector3 _input = _packet.ReadVector3();
-            Console.WriteLine($"player{_fromClient}:X:{_input.X},Y:{_input.Y}");
-            Server.clients[_fromClient].player.SetInput(_input);
-        }
+        { Server.SetPlayerPos(_fromClient, _packet.ReadVector3()); }
 
         // playerGunDirection,
         public static void PlayerGunDirection(int _fromClient, Packet _packet)
-        {
-            Quaternion r = _packet.ReadQuaternion();
-            Server.clients[_fromClient].player.SetGunRotation(r); }
+        { Server.SetGunRotation(_fromClient, _packet.ReadQuaternion()); }
 
         // playerShoot,
         public static void PlayerShoot(int _fromClient, Packet _packet)
-        {
-
-        }
+        { Server.AddProjectile(_packet.ReadVector3(), _packet.ReadQuaternion()); }
 
         // playerPickItem,
         public static void PlayerPickItem(int _fromClient, Packet _packet)
-        {
-
-        }
+        { Server.PlayerPickItem(_fromClient, _packet.ReadInt()); }
 
         // playerPlaceItem,
         public static void PlayerPlaceItem(int _fromClient, Packet _packet)
-        {
-
-        }
+        { Server.PlayerPlaceItem(_fromClient); }
 
         // playerPlaceBomb,
         public static void PlayerPlaceBomb(int _fromClient, Packet _packet)
-        {
-
-        }
+        { Server.AddBomb(_packet.ReadVector3()); }
 
         // projectileExploded
         public static void ProjectileExploded(int _fromClient, Packet _packet)
-        {
-
-        }
+        { Server.ProjectileExploded(_fromClient, _packet.ReadInt()); }
         // bombExploded
         public static void BombExploded(int _fromClient, Packet _packet)
-        {
-
-        }
+        { Server.BombExploded(_fromClient, _packet.ReadInt()); }
 
     }
 }

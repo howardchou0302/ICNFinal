@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
+using System.Numerics;
 
 enum PROGRESS{
     water = 1,
@@ -31,6 +32,10 @@ namespace GameServer
         public delegate void PacketHandler(int _fromClient, Packet _packet);
         public static Dictionary<int, PacketHandler> packetHandlers;
         public static Dictionary<int, float> progress;
+        public static Dictionary<int, Projectile> projectileList;
+        public static Dictionary<int, Bomb> bombList;
+        public static int nextProjectile;
+        public static int nextBomb;
 
         private static TcpListener tcpListener;
         private static UdpClient udpListener;
@@ -54,6 +59,93 @@ namespace GameServer
             udpListener.BeginReceive(UDPReceiveCallback, null);
 
             Console.WriteLine($"Server started on port {Port}.");
+        }
+
+        public static void SetPlayerPos(int i, Vector3 j)
+        {
+            clients[i].player.position = j;
+            ServerSend.PlayerPosition(clients[i].player);
+        }
+
+        public static void SetGunRotation(int i, Quaternion j)
+        {
+            clients[i].player.gunRotation = j;
+            ServerSend.GunRotation(clients[i].player);
+        }
+
+        public static void PlayerPickItem(int i, int j)
+        {
+            if(j == (int)PROGRESS.water) clients[i].player.state = CharacterStats.Water;
+            else if(j == (int)PROGRESS.metal) clients[i].player.state = CharacterStats.Metal;
+            else if(j == (int)PROGRESS.coal)  clients[i].player.state = CharacterStats.Coal;
+            else Console.WriteLine("[Server.cs/PlayerPickItem] ITEM ERROR.");
+            ServerSend.PlayerWithItem(clients[i].player);
+        }
+
+        public static void PlayerPlaceItem(int i)
+        {
+            if(clients[i].player.state == CharacterStats.Water)
+            {
+                if(progress[(int)PROGRESS.water] + 0.1F >= 1) progress[(int)PROGRESS.water] = 1;
+                else progress[(int)PROGRESS.water] += 0.1F;
+            }
+            else if(clients[i].player.state == CharacterStats.Coal)
+            {
+                if(progress[(int)PROGRESS.coal] + 0.1F >= 1) progress[(int)PROGRESS.coal] = 1;
+                else progress[(int)PROGRESS.coal] += 0.1F;
+            }
+            else if(clients[i].player.state == CharacterStats.Metal)
+            {
+                if(progress[(int)PROGRESS.metal] + 0.1F >= 1) progress[(int)PROGRESS.metal] = 1;
+                else progress[(int)PROGRESS.metal] += 0.1F;
+            }
+            clients[i].player.state = CharacterStats.Idle;
+            ServerSend.PlayerDropItem(clients[i].player);
+            ServerSend.GlobalProgress(progress);
+        }
+
+        public static void AddProjectile(Vector3 j, Quaternion k)
+        {
+            int i = 0;
+            for(i = nextProjectile; projectileList[i%200] != null; ++i) ;
+            projectileList.Add(i, new Projectile(i, j, k));
+            ServerSend.SpawnProjectile(projectileList[i]);
+        }
+
+        public static void AddBomb(Vector3 j)
+        {
+            int i = 0;
+            for(i = nextBomb; bombList[i%200] != null; ++i) ;
+            bombList.Add(i, new Bomb(i, j));
+            ServerSend.SpawnBomb(bombList[i]);
+        }
+
+        public static void ProjectileExploded(int i, int j)
+        {
+            if(projectileList[j] == null)
+            {
+                Console.WriteLine("[Server.cs/ProjectileExploded] projectile not found.");
+                return;
+            }
+            else projectileList[j] = null;
+            clients[i].player.state = CharacterStats.Bomb;
+            ServerSend.PlayerFrozen(clients[i].player);
+            ServerSend.ProjectileExploded(j);
+            ServerSend.PlayerDropItem(clients[i].player);
+        }
+
+        public static void BombExploded(int i, int j)
+        {
+            if(bombList[j] == null)
+            {
+                Console.WriteLine("[Server.cs/BombExploded] bomb not found.");
+                return;
+            }
+            else bombList[j] = null;
+            clients[i].player.state = CharacterStats.Bomb;
+            ServerSend.PlayerFrozen(clients[i].player);
+            ServerSend.BombExploded(j);
+            ServerSend.PlayerDropItem(clients[i].player);
         }
 
         /// <summary>Handles new TCP connections.</summary>
@@ -165,6 +257,9 @@ namespace GameServer
                 { (int)ClientPackets.bombExploded, ServerHandle.BombExploded },
             };
             Console.WriteLine("Initialized packets.");
+
+            nextProjectile = 0;
+            nextBomb = 0;
         }
     }
 }
