@@ -29,19 +29,5 @@ namespace GameServer
         {
 
         }
-
-        /// <summary>Calculates the player's desired movement direction and moves him.</summary>
-        /// <param name="_inputDirection"></param>
-        private void Move(Vector3 _inputDirection)
-        {
-            Vector3 _moveDirection = Vector3.Normalize(_inputDirection);
-            position += _moveDirection * moveSpeed;
-
-            ServerSend.PlayerPosition(this);
-            ServerSend.GunRotation(this);
-        }
-        public void SetPos(Vector3 pos){ position = pos; }
-        
-        public void SetGunRotation(Quaternion r) { gunRotation = r;  }
     }
 }

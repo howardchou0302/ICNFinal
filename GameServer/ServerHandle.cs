@@ -21,11 +21,11 @@ namespace GameServer
         }
 
         public static void PlayerMovement(int _fromClient, Packet _packet)
-        { Server.clients[_fromClient].player.SetPos(_packet.ReadVector3()); }
+        { Server.SetPlayerPos(_fromClient, _packet.ReadVector3()); }
 
         // playerGunDirection,
         public static void PlayerGunDirection(int _fromClient, Packet _packet)
-        { Server.clients[_fromClient].player.SetGunRotation(_packet.ReadQuaternion()); }
+        { Server.SetGunRotation(_fromClient, _packet.ReadQuaternion()); }
 
         // playerShoot,
         public static void PlayerShoot(int _fromClient, Packet _packet)
@@ -33,32 +33,22 @@ namespace GameServer
 
         // playerPickItem,
         public static void PlayerPickItem(int _fromClient, Packet _packet)
-        {
-
-        }
+        { Server.PlayerPickItem(_fromClient, _packet.ReadInt()); }
 
         // playerPlaceItem,
         public static void PlayerPlaceItem(int _fromClient, Packet _packet)
-        {
-
-        }
+        { Server.PlayerPlaceItem(_fromClient); }
 
         // playerPlaceBomb,
         public static void PlayerPlaceBomb(int _fromClient, Packet _packet)
-        {
-
-        }
+        { Server.AddBomb(_packet.ReadVector3()); }
 
         // projectileExploded
         public static void ProjectileExploded(int _fromClient, Packet _packet)
-        {
-
-        }
+        { Server.ProjectileExploded(_fromClient, _packet.ReadInt()); }
         // bombExploded
         public static void BombExploded(int _fromClient, Packet _packet)
-        {
-
-        }
+        { Server.BombExploded(_fromClient, _packet.ReadInt()); }
 
     }
 }

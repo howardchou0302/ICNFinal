@@ -193,12 +193,11 @@ namespace GameServer
         }
 
         // projectileExploded
-        public static void ProjectileExploded(Player _player, Projectile _projectile)
+        public static void ProjectileExploded(int projectileId)
         {
             using (Packet _packet = new Packet((int)ServerPackets.projectileExploded))
             {
-                _packet.Write(_player.id);
-                _packet.Write(_projectile.id);
+                _packet.Write(projectileId);
 
                 SendTCPDataToAll(_packet);
             }
@@ -217,12 +216,11 @@ namespace GameServer
         }
 
         // bombExploded
-        public static void BombExploded(Player _player, Bomb _bomb)
+        public static void BombExploded(int bombId)
         {
             using (Packet _packet = new Packet((int)ServerPackets.bombExploded))
             {
-                _packet.Write(_player.id);
-                _packet.Write(_bomb.id);
+                _packet.Write(bombId);
 
                 SendTCPDataToAll(_packet);
             }
