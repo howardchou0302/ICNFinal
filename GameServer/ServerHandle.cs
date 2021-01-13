@@ -21,12 +21,7 @@ namespace GameServer
         }
 
         public static void PlayerMovement(int _fromClient, Packet _packet)
-        {
-            bool[] _inputs = new bool[_packet.ReadInt()];
-            for (int i = 0; i < _inputs.Length; i++)
-            { _inputs[i] = _packet.ReadBool(); }
-            Server.clients[_fromClient].player.SetInput(_inputs);
-        }
+        { Server.clients[_fromClient].player.SetPos(_packet.ReadVector3()); }
 
         // playerGunDirection,
         public static void PlayerGunDirection(int _fromClient, Packet _packet)
@@ -34,9 +29,7 @@ namespace GameServer
 
         // playerShoot,
         public static void PlayerShoot(int _fromClient, Packet _packet)
-        {
-
-        }
+        { Server.AddProjectile(_packet.ReadVector3(), _packet.ReadQuaternion()); }
 
         // playerPickItem,
         public static void PlayerPickItem(int _fromClient, Packet _packet)
@@ -46,12 +39,6 @@ namespace GameServer
 
         // playerPlaceItem,
         public static void PlayerPlaceItem(int _fromClient, Packet _packet)
-        {
-
-        }
-
-        // playerMiningItem
-        public static void PlayerMiningItem(int _fromClient, Packet _packet)
         {
 
         }

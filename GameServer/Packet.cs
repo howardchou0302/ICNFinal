@@ -14,7 +14,6 @@ namespace GameServer
         playerFrozen,
         playerWithItem,
         playerDropItem,
-        playerMiningItem,
         globalProgress,
         gunRotation,
         spawnProjectile,
@@ -27,7 +26,6 @@ namespace GameServer
         welcomeReceived = 1,
         playerMovement,
         playerGunDirection,
-        playerMiningItem,
         playerShoot,
         playerPickItem,
         playerPlaceItem, // place item at lab

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
+using System.Numerics;
 
 enum PROGRESS{
     water = 1,
@@ -31,6 +32,10 @@ namespace GameServer
         public delegate void PacketHandler(int _fromClient, Packet _packet);
         public static Dictionary<int, PacketHandler> packetHandlers;
         public static Dictionary<int, float> progress;
+        public static Dictionary<int, Projectile> projectileList;
+        public static Dictionary<int, Bomb> bombList;
+        public static int nextProjectile;
+        public static int nextBomb;
 
         private static TcpListener tcpListener;
         private static UdpClient udpListener;
@@ -54,6 +59,14 @@ namespace GameServer
             udpListener.BeginReceive(UDPReceiveCallback, null);
 
             Console.WriteLine($"Server started on port {Port}.");
+        }
+
+        public static void AddProjectile(Vector3 j, Quaternion k)
+        {
+            int i = 0;
+            for(i = nextProjectile; projectileList[i%200] != null; ++i) ;
+            projectileList.Add(i, new Projectile(i, j, k));
+            ServerSend.SpawnProjectile(projectileList[i]);
         }
 
         /// <summary>Handles new TCP connections.</summary>
@@ -160,12 +173,14 @@ namespace GameServer
                 { (int)ClientPackets.playerShoot, ServerHandle.PlayerShoot },
                 { (int)ClientPackets.playerPickItem, ServerHandle.PlayerPickItem },
                 { (int)ClientPackets.playerPlaceItem, ServerHandle.PlayerPlaceItem },
-                { (int)ClientPackets.playerMiningItem, ServerHandle.PlayerMiningItem },
                 { (int)ClientPackets.playerPlaceBomb, ServerHandle.PlayerPlaceBomb },
                 { (int)ClientPackets.projectileExploded, ServerHandle.ProjectileExploded },
                 { (int)ClientPackets.bombExploded, ServerHandle.BombExploded },
             };
             Console.WriteLine("Initialized packets.");
+
+            nextProjectile = 0;
+            nextBomb = 0;
         }
     }
 }
