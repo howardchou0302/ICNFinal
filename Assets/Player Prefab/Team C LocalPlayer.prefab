@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8525076502472312781}
   - component: {fileID: -1354191723350492968}
+  - component: {fileID: 7102298491604143879}
   m_Layer: 0
   m_Name: Team C LocalPlayer
   m_TagString: Untagged
@@ -44,11 +45,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 155496396455450467}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3df14173c6ec0a0478ab02e167228138, type: 3}
+  m_Script: {fileID: 11500000, guid: 2243ea2a85dbd5e408ef27afc62274dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
   username: 
+--- !u!114 &7102298491604143879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 155496396455450467}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e2728c0b6cd64cf884552dc9b1c4514, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  facing: right
+  previousFacing: 
 --- !u!1 &698474582852015902
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,7 +207,6 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -376,11 +390,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3908551209962884008}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3df14173c6ec0a0478ab02e167228138, type: 3}
+  m_Script: {fileID: 11500000, guid: b3d85a7ced3182548aecfefdb5963195, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
-  username: 
 --- !u!114 &294956936401719094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -390,9 +402,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3908551209962884008}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32afd346f31488d46a080ac8debc9575, type: 3}
+  m_Script: {fileID: 11500000, guid: 2243ea2a85dbd5e408ef27afc62274dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
+  username: 
 --- !u!1 &5884523831262478488
 GameObject:
   m_ObjectHideFlags: 0
