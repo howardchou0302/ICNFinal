@@ -30,7 +30,7 @@ public class playerMovementNonLocal : MonoBehaviour
         movement.y = Input.GetAxisRaw("Vertical");
         animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
-
+        Debug.Log($"character B:{rigidbody2d.position}");
         // Press G to take out or put back weapon
         if (!isUsingWeapon) {
           if(Input.GetKeyDown(KeyCode.G)){

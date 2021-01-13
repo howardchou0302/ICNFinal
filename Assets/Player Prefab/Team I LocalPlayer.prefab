@@ -436,6 +436,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2766001250260989729}
   - component: {fileID: 5555610753365002611}
+  - component: {fileID: 1465446717889645284}
   m_Layer: 0
   m_Name: Team I LocalPlayer
   m_TagString: Untagged
@@ -475,6 +476,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   username: 
+--- !u!114 &1465446717889645284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2766001250260989728}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e2728c0b6cd64cf884552dc9b1c4514, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  facing: right
+  previousFacing: 
 --- !u!1 &6306732137052302027
 GameObject:
   m_ObjectHideFlags: 0

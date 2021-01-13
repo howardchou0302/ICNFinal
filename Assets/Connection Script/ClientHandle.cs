@@ -34,9 +34,10 @@ public class ClientHandle : MonoBehaviour
         string _username = _packet.ReadString();
         Vector3 _position = _packet.ReadVector3();
         Quaternion _rotation = _packet.ReadQuaternion();
-
         GameManager.instance.SpawnPlayer(_id, _username, _position, _rotation);
-        ClientSend.LocalCollection(Vector3.zero);
+
+
+        //ClientSend.LocalCollection(Vector3.zero);
     }
 
     public static void PlayerPosition(Packet _packet)
@@ -49,9 +50,8 @@ public class ClientHandle : MonoBehaviour
             try
             {
                 Debug.Log($"count:{GameManager.players[_id].transform.childCount}");
-                /*GameObject player = GameManager.players[_id].transform.GetChild(2).gameObject;
-                player.transform.position = _position;*/
-                GameManager.players[_id].transform.position = _position;
+                GameObject player = GameManager.players[_id].transform.GetChild(2).gameObject;
+                player.transform.position = _position;
             }
             catch (KeyNotFoundException e)
             {
@@ -106,13 +106,15 @@ public class ClientHandle : MonoBehaviour
 
     public static void GunRotation(Packet _packet)
     {
-        Vector3 _position = _packet.ReadVector3();
+        int _id = _packet.ReadInt();
+        Debug.Log($"_id:{_id}");
+        //Vector3 _position = _packet.ReadVector3();
         Quaternion _rotation = _packet.ReadQuaternion();
         try
         {
             if(_rotation != Quaternion.identity)
             {
-
+                // 傳給id的人 
             }
             else
             {
