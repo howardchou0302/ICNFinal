@@ -13,6 +13,7 @@ Assets/Scenes
 GameServer/bin
 GameServer/obj
 GameServer/.vs
+GameServer/.vscode
 
 # distinct files under Assets
 Assets/Weapons/Landmine.controller
