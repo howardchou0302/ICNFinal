@@ -263,6 +263,7 @@ public class Client : MonoBehaviour
 
         private void HandleData(byte[] _data)
         {
+            Debug.Log("[Client.cs/HandleData]");
             using (Packet _packet = new Packet(_data))
             {
                 int _packetLength = _packet.ReadInt();
@@ -294,8 +295,15 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.welcome, ClientHandle.welcome },
             { (int)ServerPackets.spawnPlayer, ClientHandle.SpawnPlayer },
             { (int)ServerPackets.playerPosition, ClientHandle.PlayerPosition },
-            { (int)ServerPackets.playerRotation, ClientHandle.PlayerRotation },
-            { (int)ServerPackets.global_progress, ClientHandle.Global_Progress }
+            { (int)ServerPackets.playerFrozen, ClientHandle.PlayerFrozen },
+            { (int)ServerPackets.playerWithItem, ClientHandle.PlayerWithItem },
+            { (int)ServerPackets.playerDropItem, ClientHandle.PlayerDropItem },
+            { (int)ServerPackets.globalProgress, ClientHandle.GlobalProgress },
+            { (int)ServerPackets.gunRotation, ClientHandle.GunRotation },
+            { (int)ServerPackets.spawnProjectile, ClientHandle.SpawnProjectile },
+            { (int)ServerPackets.projectileExploded, ClientHandle.ProjectileExploded },
+            { (int)ServerPackets.spawnBomb, ClientHandle.SpawnBomb },
+            { (int)ServerPackets.bombExploded, ClientHandle.BombExploded }
         };
         Debug.Log("Initialized packets.");
     }
