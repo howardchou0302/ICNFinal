@@ -8,6 +8,14 @@ public enum CharacterStats{
   Idle =0, Walk = 1, Coal = 2, Metal = 3, Water = 4, Bomb = 5,
 }
 
+enum ITEM
+{
+    water = 1,
+    metal,
+    coal,
+    total
+}
+
 public class actionAni : MonoBehaviour
 {
 
@@ -60,30 +68,35 @@ public class actionAni : MonoBehaviour
             rb.constraints = RigidbodyConstraints2D.FreezePosition| RigidbodyConstraints2D.FreezeRotation;
             anim.SetBool("increase_coal",true);
             StartCoroutine(actionTime());
+            ClientSend.PlayerPickItem((int)ITEM.coal);
         }
         if (aaa.gameObject.tag == "Metal" && Input.GetKeyDown(KeyCode.Space)){
           anim.SetBool("metal",true);
           rb.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
           anim.SetBool("increase_metal",true);
           StartCoroutine(actionTime());
+            ClientSend.PlayerPickItem((int)ITEM.metal);
         }
         if (aaa.gameObject.tag == "lab" && Input.GetKeyDown(KeyCode.Space)){
           anim.SetBool("develop",false);
           if(anim.GetBool("increase_coal")){
             //Vector3 _localCollection = new Vector3(increment,0,0);
-            coalSlider.UpdateAmount(increment);
-            anim.SetBool("increase_coal",false);
+            //coalSlider.UpdateAmount(increment);
+           anim.SetBool("increase_coal",false);
+           ClientSend.PlayerPlaceItem((int)ITEM.coal);
           }
           if(anim.GetBool("increase_metal")){
             //Vector3 _localCollection = new Vector3(0,increment,0);
-            metalSlider.UpdateAmount(increment);
+            //metalSlider.UpdateAmount(increment);
             anim.SetBool("increase_metal",false);
-          }
-          if(anim.GetBool("increase_water")){
+            ClientSend.PlayerPlaceItem((int)ITEM.metal);
+            }
+            if (anim.GetBool("increase_water")){
             //Vector3 _localCollection = new Vector3(0, 0, increment);
-            waterSlider.UpdateAmount(increment);
+            //waterSlider.UpdateAmount(increment);
             anim.SetBool("increase_water",false);
-          }
+            ClientSend.PlayerPlaceItem((int)ITEM.water);
+            }
         }
 
     }
@@ -93,6 +106,7 @@ public class actionAni : MonoBehaviour
         rb.constraints = RigidbodyConstraints2D.FreezePosition |RigidbodyConstraints2D.FreezeRotation;
         anim.SetBool("increase_water",true);
         StartCoroutine(actionTime());
+        ClientSend.PlayerPickItem((int)ITEM.water);
       }
     }
 }

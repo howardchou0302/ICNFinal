@@ -57,6 +57,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -204,7 +205,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2766001248697409529}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2243ea2a85dbd5e408ef27afc62274dc, type: 3}
+  m_Script: {fileID: 11500000, guid: 3df14173c6ec0a0478ab02e167228138, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
@@ -248,7 +249,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2766001248697409529}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3d85a7ced3182548aecfefdb5963195, type: 3}
+  m_Script: {fileID: 11500000, guid: 32afd346f31488d46a080ac8debc9575, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2766001249672084802
@@ -470,7 +471,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2766001250260989728}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2243ea2a85dbd5e408ef27afc62274dc, type: 3}
+  m_Script: {fileID: 11500000, guid: 3df14173c6ec0a0478ab02e167228138, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0

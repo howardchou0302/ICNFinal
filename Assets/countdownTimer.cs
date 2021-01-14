@@ -8,11 +8,15 @@ public class countdownTimer : MonoBehaviour
     public float timeRemaining = 10;
     public bool timerIsRunning = false;
     public Text timeText;
-
+    public void resetTimer()
+    {
+        timeRemaining = 300;
+    }
     private void Start()
     {
         // Starts the timer automatically
         timerIsRunning = true;
+        resetTimer();
     }
 
     void Update()
@@ -36,10 +40,8 @@ public class countdownTimer : MonoBehaviour
     void DisplayTime(float timeToDisplay)
     {
         timeToDisplay += 1;
-
         float minutes = Mathf.FloorToInt(timeToDisplay / 60);
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
-
         timeText.text = string.Format("{0:0}:{1:00}", minutes, seconds);
     }
 }

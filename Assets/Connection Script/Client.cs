@@ -158,8 +158,7 @@ public class Client : MonoBehaviour
                 }
             }
             Debug.Log($"_packetLength:{_packetLength}");
-            // while (_packetLength > 0 && _packetLength <= receivedData.UnreadLength())
-            while (_packetLength > 0)
+            while (_packetLength > 0 && _packetLength <= receivedData.UnreadLength())
             {
                 Debug.Log($"in while, read packet");
                 byte[] _packetBytes = receivedData.ReadBytes(_packetLength);

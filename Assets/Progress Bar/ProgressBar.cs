@@ -48,4 +48,11 @@ public class ProgressBar : FillBar {
     void OnProgressComplete() {
         // Debug.Log("Progress Complete");
     }
+
+    public void UpdateAmount(System.Numerics.Vector3 _amount)
+    {
+        waterSlider.UpdateAmount(_amount.X);
+        metalSlider.UpdateAmount(_amount.Y);
+        coalSlider.UpdateAmount(_amount.Z);
+    }
 }

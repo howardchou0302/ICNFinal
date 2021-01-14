@@ -32,6 +32,11 @@ public class Weapon : MonoBehaviour {
         Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         float rotZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, rotZ + offset);
+        ClientSend.PlayerGunDirection(transform.rotation);
+        Debug.Log($"x = {transform.rotation.x}");
+        Debug.Log($"y = {transform.rotation.y}");
+        Debug.Log($"z = {transform.rotation.z}");
+        Debug.Log($"w = {transform.rotation.w}");
 
         if (timeBtwShots <= 0)
         {

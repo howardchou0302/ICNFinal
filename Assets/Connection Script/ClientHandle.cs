@@ -34,8 +34,10 @@ public class ClientHandle : MonoBehaviour
         string _username = _packet.ReadString();
         Vector3 _position = _packet.ReadVector3();
         Quaternion _rotation = _packet.ReadQuaternion();
-
         GameManager.instance.SpawnPlayer(_id, _username, _position, _rotation);
+
+
+        //ClientSend.LocalCollection(Vector3.zero);
     }
 
     public static void PlayerPosition(Packet _packet)
@@ -48,9 +50,8 @@ public class ClientHandle : MonoBehaviour
             try
             {
                 Debug.Log($"count:{GameManager.players[_id].transform.childCount}");
-                /*GameObject player = GameManager.players[_id].transform.GetChild(2).gameObject;
-                player.transform.position = _position;*/
-                GameManager.players[_id].transform.position = _position;
+                GameObject player = GameManager.players[_id].transform.GetChild(2).gameObject;
+                player.transform.position = _position;
             }
             catch (KeyNotFoundException e)
             {
@@ -105,21 +106,15 @@ public class ClientHandle : MonoBehaviour
 
     public static void GunRotation(Packet _packet)
     {
-        Vector3 _position = _packet.ReadVector3();
+        int _id = _packet.ReadInt();
+        Debug.Log($"_id:{_id}");
+        //Vector3 _position = _packet.ReadVector3();
         Quaternion _rotation = _packet.ReadQuaternion();
         try
         {
-            if(_rotation != Quaternion.identity)
-            {
-
-            }
-            else
-            {
-                if (true)
-                {
-
-                }
-            }
+            GameObject player = GameManager.players[_id].transform.GetChild(2).gameObject;
+            player.GetComponent<playerMovementNonLocal>().SetMasturbate(_rotation);
+            //player.GetComponent<WeaponNonLocal>().SetRotation(_rotation);
         }
         catch (KeyNotFoundException e)
         {
@@ -161,16 +156,19 @@ public class ClientHandle : MonoBehaviour
     public static void GlobalProgress(Packet _packet)
     {
         //int _teamID = _packet.ReadInt();
-        Vector3 _progress = _packet.ReadVector3();
-        Debug.Log($"Global collection from server : ({ _progress.x}, {_progress.y}, {_progress.z})");
+        float _water = _packet.ReadFloat();
+        float _metal = _packet.ReadFloat();
+        float _coal = _packet.ReadFloat();
+        float _total = _packet.ReadFloat();
+        Debug.Log($"Global collection from server : ({ _water}, {_metal}, {_coal})");
         try
         {
             //if (client.instance.id % 2 == _teamID)
             //{
-            Constants.globalCollection.X = _progress.x;
-            Constants.globalCollection.Y = _progress.y;
-            Constants.globalCollection.Z = _progress.z;
-            
+            Constants.globalCollection.X = _water;
+            Constants.globalCollection.Y = _metal;
+            Constants.globalCollection.Z = _coal;
+            GameManager.players[Client.instance.id].transform.GetComponentInChildren<ProgressBar>().UpdateAmount(Constants.globalCollection);
             //} 
             //ProgressBar.transform.GetChild(2).transform.GetChild(2).text
         }

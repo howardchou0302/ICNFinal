@@ -8,7 +8,7 @@ using System.Collections;
 public enum ServerPackets
 {
     welcome = 1,
-    spawnPlayer,
+    spawnPlayer = 2,
     playerPosition,
     playerFrozen,
     playerWithItem,
@@ -20,6 +20,8 @@ public enum ServerPackets
     spawnBomb,
     bombExploded
 }
+
+/// <summary>Sent from client to server.</summary>
 public enum ClientPackets
 {
     welcomeReceived = 1,
@@ -27,11 +29,12 @@ public enum ClientPackets
     playerGunDirection,
     playerShoot,
     playerPickItem,
-    playerPlaceItem, // place item at lab
+    playerPlaceItem,
     playerPlaceBomb,
     projectileExploded,
     bombExploded
 }
+
 public class Packet : IDisposable
 {
     private List<byte> buffer;

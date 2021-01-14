@@ -17,11 +17,11 @@ public class CPB : MonoBehaviour
        currentAmount = 0;
    }
 
-   public void UpdateAmount(int amount)
+   public void UpdateAmount(float amount)
    {
        if (currentAmount < 100)
        {
-           currentAmount += amount;
+           currentAmount = amount*100;
            TextIndicator.GetComponent<Text>().text = ((int)currentAmount).ToString()+"%";
            TextResource.gameObject.SetActive(true);
 

@@ -76,7 +76,7 @@ public class ClientSend : MonoBehaviour
         using (Packet _packet = new Packet((int)ClientPackets.playerGunDirection))
         {
             _packet.Write(_input);
-            if (Client.instance.isConnected)
+            if (Client.instance.isConnected && Client.instance.id%2 == 0)
             {
 
                 SendUDPData(_packet);
@@ -93,11 +93,12 @@ public class ClientSend : MonoBehaviour
             SendTCPData(_packet);
         }
     }
-    public static void PlayerPickItem()
+    public static void PlayerPickItem(int _item)
     {
         using (Packet _packet = new Packet((int)ClientPackets.playerPickItem))
         {
-            _packet.Write(Client.instance.id);
+            //_packet.Write(Client.instance.id);
+            _packet.Write(_item);
             SendTCPData(_packet);
         }
     }
@@ -107,6 +108,15 @@ public class ClientSend : MonoBehaviour
         using (Packet _packet = new Packet((int)ClientPackets.playerPlaceBomb))
         {
             _packet.Write(Client.instance.id);
+            SendTCPData(_packet);
+        }
+    }
+
+    public static void PlayerPlaceItem(int _item)
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.playerPlaceItem))
+        {
+            _packet.Write(_item);
             SendTCPData(_packet);
         }
     }

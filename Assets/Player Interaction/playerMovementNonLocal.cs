@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerMovement : MonoBehaviour
+public class playerMovementNonLocal : MonoBehaviour
 {
     public GameObject gun;
     public Transform weaponSpawnPoint;
@@ -14,6 +14,7 @@ public class playerMovement : MonoBehaviour
     float vertical;
     Vector2 movement;
 
+    private Quaternion Masturbate;
     private bool isUsingWeapon = false;
     private GameObject currentWeapon;
 
@@ -26,28 +27,34 @@ public class playerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
-        animator.SetFloat("Horizontal", movement.x);
-        animator.SetFloat("Vertical", movement.y);
-
         // Press G to take out or put back weapon
         if (!isUsingWeapon) {
-          if(Input.GetKeyDown(KeyCode.G)){
-              currentWeapon = Instantiate(gun, weaponSpawnPoint.position, Quaternion.identity);
+          if(Masturbate != Quaternion.identity){
+              currentWeapon = Instantiate(gun, weaponSpawnPoint.position, Masturbate);
               currentWeapon.transform.parent = gameObject.transform;
+                //gun.transform.rotation = Masturbate;
+                gun.GetComponent<WeaponNonLocal>().SetRotation(Masturbate);
               isUsingWeapon = true;
             }
-            ClientSend.PlayerGunDirection(Quaternion.identity);
         }
         else {
-            if(Input.GetKeyDown(KeyCode.G)){
+            if(Masturbate == Quaternion.identity){
               Destroy(currentWeapon);
               isUsingWeapon = false;
+            }
+            else
+            {
+                gun.GetComponent<WeaponNonLocal>().SetRotation(Masturbate);
+                //gun.transform.rotation = Masturbate;
+
             }
         }
     }
 
+    public void SetMasturbate(Quaternion rotation)
+    {
+        Masturbate = rotation;
+    }
     // void FixedUpdate()
     // {
     //     Vector3 position = rigidbody2d.position;
@@ -63,11 +70,11 @@ public class playerMovement : MonoBehaviour
     //     rigidbody2d.MovePosition(position);
     // }
 
-    void FixedUpdate(){
+    /*void FixedUpdate(){
       Vector2 position = rigidbody2d.position;
       position = rigidbody2d.position + movement * speed * Time.fixedDeltaTime;
       position = new Vector2(
       Mathf.Clamp(position.x,-22f,21.5f), Mathf.Clamp(position.y,-16f,15.5f));
       rigidbody2d.MovePosition(position);
-    }
+    }*/
 }
