@@ -104,6 +104,7 @@ namespace GameServer
 
                 SendTCPData(_toClient, _packet);
             }
+            GlobalProgress(Server.progress);
         }
 
         /// <summary>Sends a player's updated position to all clients.</summary>
