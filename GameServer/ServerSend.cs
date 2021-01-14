@@ -225,6 +225,18 @@ namespace GameServer
                 SendTCPDataToAll(_packet);
             }
         }
+
+        //playerEliminated
+        public static void PlayerEliminated(int i)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.bombExploded))
+            {
+                _packet.Write(i);
+
+                SendTCPDataToAll(_packet);
+            }
+        }
+
         #endregion
     }
 }

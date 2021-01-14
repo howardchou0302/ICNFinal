@@ -19,7 +19,9 @@ namespace GameServer
         spawnProjectile,
         projectileExploded,
         spawnBomb,
-        bombExploded
+        bombExploded,
+        playerEliminated
+
     }
     public enum ClientPackets
     {

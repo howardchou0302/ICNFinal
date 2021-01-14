@@ -148,6 +148,10 @@ namespace GameServer
             ServerSend.PlayerDropItem(clients[i].player);
         }
 
+        public static void PlayerEliminated(int i){
+            ServerSend.PlayerEliminated(i);
+        }
+
         /// <summary>Handles new TCP connections.</summary>
         private static void TCPConnectCallback(IAsyncResult _result)
         {

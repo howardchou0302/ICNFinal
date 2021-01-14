@@ -243,10 +243,12 @@ namespace GameServer
         {
             Console.WriteLine($"{tcp.socket.Client.RemoteEndPoint} has disconnected.");
 
+            Server.PlayerEliminated(player.id);
             player = null;
 
             tcp.Disconnect();
             udp.Disconnect();
+
         }
     }
 }
